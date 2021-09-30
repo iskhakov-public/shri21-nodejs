@@ -1,0 +1,28 @@
+{
+  "name": "shri1-nodejs-backremserver",
+  "version": "1.0.0",
+  "description": "Background changer API Server",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky install"
+  },
+  "author": "Nail Iskhakov",
+  "license": "ISC",
+  "dependencies": {
+    "backrem": "^1.0.4",
+    "express": "^4.17.1",
+    "uuid": "^8.3.2"
+  },
+  "lint-staged": {
+    "*.{js,css,md}": "prettier --write",
+    "*.js": "eslint --cache --fix"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "husky": "^7.0.2",
+    "lint-staged": "^11.1.2",
+    "prettier": "^2.4.1"
+  }
+}
