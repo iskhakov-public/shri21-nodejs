@@ -11,9 +11,11 @@
   "author": "Nail Iskhakov",
   "license": "ISC",
   "dependencies": {
-    "backrem": "^1.0.4",
+    "backrem": "^1.1.0",
     "express": "^4.17.1",
-    "uuid": "^8.3.2"
+    "morgan": "^1.10.0",
+    "multer": "^1.4.3",
+    "nanoid": "^3.1.28"
   },
   "lint-staged": {
     "*.{js,css,md}": "prettier --write",
