@@ -118,10 +118,10 @@ app.get('/merge', async (req, res) => {
   const backStr = createReadStream(path.resolve(__dirname, '..', backObj.path));
 
   res.setHeader('Content-type', frontObj.mimeType);
-  res.setHeader(
-    'Content-Disposition',
-    `attachment; filename=merged${path.extname(frontObj.path)}`
-  );
+  //   res.setHeader(
+  //     'Content-Disposition',
+  //     `attachment; filename=merged${path.extname(frontObj.path)}`
+  //   );
 
   const rstream = await replaceBackground(
     frontStr,
