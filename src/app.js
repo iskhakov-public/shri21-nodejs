@@ -70,21 +70,32 @@ app.get('/image/:id', (req, res) => {
 
 app.delete('/image/:id', (req, res) => {
   if (db.deleteById(req.params.id)) {
-    res.sendStatus(200);
+    res.end();
   } else {
-    res.sendStatus(400);
+    res.status(400).end();
   }
 });
 
 app.get('/merge', async (req, res) => {
   const { front, back, color, threshold } = req.query;
 
-  if (!color || !threshold) {
-    res.status(400).send({ error: 'color or threshold not provided' });
-    return;
+  let colors = [255, 255, 255];
+  if (color) {
+    try {
+      colors = color.split(',').map((i) => parseInt(i));
+    } catch (e) {
+      // Ignore: use default
+    }
   }
 
-  let colors = color.split(',').map((i) => parseInt(i));
+  let thresholdNum = 0;
+  if (threshold) {
+    try {
+      thresholdNum = parseInt(threshold);
+    } catch (e) {
+      // Ignore: use default
+    }
+  }
 
   const frontObj = db.getById(front);
   if (!frontObj || !frontObj.path) {
@@ -110,7 +121,7 @@ app.get('/merge', async (req, res) => {
     frontStr,
     backStr,
     colors,
-    parseInt(threshold)
+    thresholdNum
   );
   rstream.pipe(res);
 });
