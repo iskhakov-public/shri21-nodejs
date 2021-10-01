@@ -112,24 +112,31 @@ app.get('/merge', async (req, res) => {
   //   frontObj = {path: 'assets/S2YnSak84nGPGwosjldT-.jpg', mimeType: "image/jpg"}
   //   backObj = {path: 'assets/sb2DWcibRCjS89efEYL2i.jpg'}
 
-  const frontStr = createReadStream(
-    path.resolve(__dirname, '..', frontObj.path)
-  );
-  const backStr = createReadStream(path.resolve(__dirname, '..', backObj.path));
+  try {
+    const frontStr = createReadStream(
+      path.resolve(__dirname, '..', frontObj.path)
+    );
+    const backStr = createReadStream(
+      path.resolve(__dirname, '..', backObj.path)
+    );
 
-  res.setHeader('Content-type', frontObj.mimeType);
-  //   res.setHeader(
-  //     'Content-Disposition',
-  //     `attachment; filename=merged${path.extname(frontObj.path)}`
-  //   );
+    res.setHeader('Content-type', 'image/jpeg');
+    res.setHeader('Content-Disposition', 'attachment; filename=merged.jpg');
+    //   res.setHeader(
+    //     'Content-Disposition',
+    //     `attachment; filename=merged${path.extname(frontObj.path)}`
+    //   );
 
-  const rstream = await replaceBackground(
-    frontStr,
-    backStr,
-    colors,
-    thresholdNum
-  );
-  rstream.pipe(res);
+    const rstream = await replaceBackground(
+      frontStr,
+      backStr,
+      colors,
+      thresholdNum
+    );
+    rstream.pipe(res);
+  } catch (err) {
+    res.status(400).end();
+  }
 });
 
 // DEBUG
